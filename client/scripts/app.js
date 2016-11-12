@@ -37,6 +37,7 @@ var app = {
       contentType: 'application/json',
       success: function (data) {
         console.log('chatterbox: Message sent', data);
+
       },
       error: function (data) {
         // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
@@ -50,7 +51,11 @@ var app = {
       url: 'https://api.parse.com/1/classes/messages',
       type: 'GET',
       contentType: 'application/json',
+      data: 'order=-createdAt',
       success: function (data) {
+        data.results.sort(function(a, b) {
+          return a.createdAt > b.createdAt ? -1 : 1;
+        });
         console.log('chatterbox: Message fetched', data);
         _.each(data.results, (message) => {
           setTimeout(app.renderMessage(message), 1000);
@@ -85,7 +90,20 @@ var app = {
     }
 
     $userName.append($message);
-      $chats.children('.'+roomName).append($userName);
+
+    var truthy = false;
+    _.each($chats.children('.' + roomName).children(), function(tweet) {
+      if (($userName.className === $(tweet).className) && 
+        ($(tweet).children().text() === $userName.children().text())) {
+        truthy = true;
+      }  
+    });
+
+    if (!truthy) {
+      $chats.children('.' + roomName).prepend($userName);
+    }
+
+    
 
     var thisUser = userName;
     $userName.on('click', function() {
@@ -104,11 +122,10 @@ var app = {
   },
 
   handleSubmit: function(submitValNode) {
-    console.log("IM RUNNING");
     var message = {
       username: window.location.search.split('=')[1],
       text: submitValNode.val(),
-      roomname: $('#roomSelect :selected').text()
+      roomname: $('#roomSelect :selected').text().trim()
     };
     app.send(message);
   },
@@ -117,7 +134,7 @@ var app = {
     var $allChats = $('#chats');
     console.log('filtering with', room);
     _.each($allChats.children(), function(divs) {
-      if ($(divs).hasClass(room)){
+      if ($(divs).hasClass(room)) {
         console.log('WORKING');
         $(divs).show();
       } else {
