@@ -8,6 +8,7 @@ var app = {
     roomName = '';
     uniqRooms = [];
 
+    messages = [];
     $chats = $('#chats');
     $room = $('#roomSelect');    // getting id and setting it
     $main = $('#main');
@@ -18,6 +19,11 @@ var app = {
     $('#send').on('submit', function(event) {
       app.handleSubmit($('#message'));
       event.preventDefault();
+    });
+
+    $('#roomSelect').on('change', function(event) {
+      var room = $('#roomSelect :selected').val();
+      app.filterRoom(room);
     });
   },
 
@@ -68,25 +74,25 @@ var app = {
     roomName = message.roomname;
 
     $userName = $('<span class="username"> ' + userName + '</span>');
-    $message = $('<span id="tweet">: ' + text + ' </span> </br>');
-    $roomName = $('<option id="room"> ' + roomName + ' </option>');
-
-    $message.attr('class', roomName);
+    $message = $('<span class="tweet">: ' + text + ' </span> </br>');
+    $roomName = $('<option> ' + roomName + ' </option>');
 
     if (!_.contains(uniqRooms, roomName)) {
       uniqRooms.push(roomName);
       $('#roomSelect').append($roomName);
+      var $divRoom = $('<div class=' + roomName + '> </div>');
+      $chats.append($divRoom);
     }
 
     $userName.append($message);
-    $chats.append($userName);
-    // $usernameStorage.append($userName);
+      $chats.children('.'+roomName).append($userName);
+
     var thisUser = userName;
     $userName.on('click', function() {
       app.handleUsernameClick(thisUser);
 
     });
-    
+
   },
 
   renderRoom: function(roomName) {
@@ -105,7 +111,24 @@ var app = {
       roomname: $('#roomSelect :selected').text()
     };
     app.send(message);
+  },
 
+  filterRoom: function(room) {
+    var $allChats = $('#chats');
+    console.log('filtering with', room);
+    _.each($allChats.children(), function(divs) {
+      if ($(divs).hasClass(room)){
+        console.log('WORKING');
+        $(divs).show();
+      } else {
+        $(divs).hide();
+      }
+    });
   }
+    // _.each($chatNodes, (chat) => {
+    //   if (chat.className !== room.text()) {
+    //     $('.').toggle();
+    //   }
+    // });
 };
 

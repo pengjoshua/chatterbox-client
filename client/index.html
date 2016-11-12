@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>chatterbox</title>
-    <link rel="stylesheet" href="styles/styles.css">   
+    <link rel="stylesheet" href="styles/styles.css">
   </head>
   <body>
     <div id="main">
@@ -22,7 +22,7 @@
       </form>
     </div>
     <div id="chats">
-      
+
     </div>
     <!-- dependencies -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -41,18 +41,18 @@
     <!-- your scripts -->
     <script src="env/config.js"></script>
     <script src="scripts/app.js"></script>
-    <script> 
+    <script>
     app.init();
-
-    // var repeat = function() {
-    //   var object = app.fetch();
-    //   _.each(object.results, (message) => {
-    //     console.log('MESSAGE', message);
-    //     app.renderMessage(message);
-    //   });
-    // };
-    // repeat();
     app.fetch();
+    app.filterRoom($('#roomSelect :selected').text());
+    var getData = function() {
+      setTimeout(function() {
+        app.fetch();
+        getData();
+      }, 5000)
+    }
+    getData();
+
 
     // app.renderMessage({username: "name", text: "texterino", roomname: "lobby"});
 
