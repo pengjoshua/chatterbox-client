@@ -3,30 +3,59 @@
   <head>
     <meta charset="utf-8">
     <title>chatterbox</title>
-    <link rel="stylesheet" href="styles/styles.css">
-
-    <!-- dependencies -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script>
-      // YOU DO NOT NEED TO EDIT THIS CODE
-      if (!/(&|\?)username=/.test(window.location.search)) {
-        var newSearch = window.location.search;
-        if (newSearch !== '' & newSearch !== '?') {
-          newSearch += '&';
-        }
-        newSearch += 'username=' + (prompt('What is your name?') || 'anonymous');
-        window.location.search = newSearch;
-      }
-    </script>
-    <!-- your scripts -->
-    <script src="env/config.js"></script>
-    <script src="scripts/app.js"></script>
+    <link rel="stylesheet" href="styles/styles.css">   
   </head>
   <body>
     <div id="main">
       <h1>chatterbox</h1>
       <!-- Your HTML goes here! -->
+      <!-- <div class="spinner"><img src="../client/images/spiffygif_46x46.gif"></div> -->
+      <div id="rooms">
+        Room:
+        <select id="roomSelect">
+          <option id="room"> test </option>
+        </select>
+
+      <form action="#" id="send" method="post">
+        <input type="text" name="message" id="message"/>
+        <input type="submit" name="submit" class="submit"/>
+      </form>
     </div>
-    <div id="chats"></div>
+    <div id="chats">
+      
+    </div>
+    <!-- dependencies -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script>
+    // YOU DO NOT NEED TO EDIT THIS CODE
+    if (!/(&|\?)username=/.test(window.location.search)) {
+      var newSearch = window.location.search;
+      if (newSearch !== '' & newSearch !== '?') {
+        newSearch += '&';
+      }
+      newSearch += 'username=' + (prompt('What is your name?') || 'anonymous');
+      window.location.search = newSearch;
+    }
+    </script>
+    <!-- your scripts -->
+    <script src="env/config.js"></script>
+    <script src="scripts/app.js"></script>
+    <script> 
+    app.init();
+
+    // var repeat = function() {
+    //   var object = app.fetch();
+    //   _.each(object.results, (message) => {
+    //     console.log('MESSAGE', message);
+    //     app.renderMessage(message);
+    //   });
+    // };
+    // repeat();
+    app.fetch();
+
+    // app.renderMessage({username: "name", text: "texterino", roomname: "lobby"});
+
+    </script>
   </body>
 </html>
