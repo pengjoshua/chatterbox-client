@@ -69,14 +69,16 @@ var app = {
     $.ajax({
       url: 'https://api.parse.com/1/classes/messages',
       type: 'GET',
-      contentType: 'application/json',
-      // data: 'order=-createdAt',
+      contentType: 'json',
+      // data: 'order=-createdAt & limit=1000',
+      data: {order: '-createdAt',
+             limit: 200},
       success: function (data) {
         data.results.sort(function(a, b) {
           return a.createdAt > b.createdAt ? -1 : 1;
         });
         _.each(data.results, (message) => {
-          setTimeout(app.renderMessage(message), 1000);
+          app.renderMessage(message);
         });
       },
       error: function (data) {
@@ -116,9 +118,9 @@ var app = {
 
     }
 
-
+// $chats.children('.' + roomName).children().children()
     var truthy = false;
-    _.each($chats.children('.' + roomName).children().children(), function(tweet) {
+    _.each($(document.getElementsByClassName(roomName)).children().children(), function(tweet) {
       if (($userName.className === $(tweet).className) && 
         ($(tweet).children().text() === $userName.children().text())) {
         truthy = true;
@@ -127,7 +129,7 @@ var app = {
 
     if (!truthy) {
       $messageDiv.fadeIn();
-      $chats.children('.' + roomName).prepend($messageDiv);
+      $(document.getElementsByClassName(roomName)).prepend($messageDiv);
     }
 
     
@@ -141,6 +143,7 @@ var app = {
   },
 
   renderRoom: function(roomName) {
+    console.log(roomName);
     if (!_.contains(uniqRooms, roomName)) {
       uniqRooms[roomName] = roomName;
       var $newRoom = $('<option> ' + roomName + '</option>');
