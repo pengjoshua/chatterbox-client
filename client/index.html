@@ -16,13 +16,27 @@
         </select>
 
       <form action="#" id="send" method="post">
+      <div class='postMessage'> Post Message </div>
         <input type="text" name="message" id="message"/>
         <input type="submit" name="submit" class="submit"/>
       </form>
-    </div>
-    <div id="chats">
+
+      <form action="#" id="roomSend" method="post">
+      <div class='postRoom'> Create Room </div>
+        <input type="text" name="message" id="roomCreate"/>
+        <input type="submit" name="submit" class="submit"/>
+      </form>
 
     </div>
+
+    <div id="chats">
+      <span class="messageTitle"> Messages </span>
+    </div>
+    <div id="friendDiv"> 
+      <ul id='friends'>
+        <li class='friendTitle'>Friends</br></li>
+      </ul>
+    </div>    
     <!-- dependencies -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
@@ -48,7 +62,7 @@
       setTimeout(function() {
         app.fetch();
         getData();
-      }, 10000);
+      }, 2000);
     };
     getData();
 

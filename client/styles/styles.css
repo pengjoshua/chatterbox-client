@@ -1,17 +1,31 @@
 body {
-    background: #eee;
+    background: rgb(66, 244, 235);
     text-align: center;
     padding: 0 25px;
-    font-family: arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-#main, #chats {
-    margin: auto;
+#main {
+
+}
+
+#chats {
     text-align: left;
+    /*margin-right: 400px;*/
+    width: 60%;
+    height: 600px;
     background: white;
-    padding: 50px 60px;
+    padding: 10px 10px;
     border: solid #ddd;
     border-width: 0 1px 1px 1px;
+    border-radius: 10px;
+    margin:3% 0% 2% 3%;
+    position: relative;
+    display:block;
+    float:left;
+    overflow-y:hidden;
+    -webkit-box-shadow: 2px 2px 2px 2px rgb(183, 0, 177);
+    background-color: rgb(0,0,0);
 }
 
 #main h1 {
@@ -46,9 +60,9 @@ body {
 }
 
 form {
-    padding: 20px;
+    padding: 10px;
     padding-left: 0;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
 }
 
 form input[type=text] {
@@ -83,10 +97,69 @@ form input[type=text] {
 }
 
 .friend {
-    color: #fff;
-    background-color: #0090da;
+    font-weight: bold;
 }
 
+#friends {
+    text-align: left;
+}
+
+#friendDiv {
+    margin-top: 3%;
+    width: 100px;
+    float:left;
+}
+
+li {
+    list-style: none;
+    float:left;
+}
+
+.friendTitle {
+    font-size: 22px;
+}
 #tweets {
     width: 10px;
+}
+
+.divRoom {
+    position:relative;
+    height: 100%;
+    overflow-y: scroll;
+}
+.messageTitle {
+    font-size: 22px;
+    color: white;
+
+}
+
+.messages {
+    position: relative;
+    min-width: 90%;
+    min-height:10%;
+    text-align: left;
+    display: block;
+    padding: 3% 0% 3% 2%;
+    margin: 1% 0% 0% 0%;
+    background-color: rgb(240, 240, 240);
+    border: 1px solid black;
+    border-radius: 10px;
+    -webkit-box-shadow: 1px 1px 2px 2px rgb(183,0, 177);
+    transition: 1s;
+}
+
+.divRoom :hover {
+    background-color: rgb(188, 244, 66);
+    transition: 1s;
+}
+
+.postMessage {
+    font-size: 22px;
+    float:left;
+    padding-left: 3%;
+}
+.postRoom {
+    font-size: 22px;
+    float:left;
+    padding-left: 3%;
 }
